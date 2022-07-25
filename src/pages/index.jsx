@@ -1,7 +1,4 @@
 import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
   Button,
   Flex,
   Grid,
@@ -22,7 +19,7 @@ const Home = () => {
   const toast = useToast();
   const products = useRecoilValue(productsState);
   const setProductsState = useSetRecoilState(productsState);
-  const { payments, getPaidProduct } = usePayments();
+  const { getPaidProduct } = usePayments();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -116,9 +113,7 @@ const Home = () => {
 };
 
 const Item = ({ item, handleDelete, handlePayment, getPaidProduct }) => {
-  console.log("🚀 ~ item", item);
   const isPaid = getPaidProduct(item._id);
-  console.log("🚀 ~ isPaid", isPaid);
 
   return (
     <GridItem

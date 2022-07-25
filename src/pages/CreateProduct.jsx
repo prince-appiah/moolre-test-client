@@ -21,7 +21,6 @@ const Products = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
-  const formRef = useRef(null);
   const history = useHistory();
 
   const handleUpload = async (ev) => {
