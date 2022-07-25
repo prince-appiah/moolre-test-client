@@ -6,9 +6,10 @@ import {
   FormLabel,
   Image,
   Input,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { api } from "../axios";
 import { uploadFile } from "../firebase";
@@ -17,11 +18,10 @@ const Products = () => {
   const [productName, setProductName] = useState("");
   const [amount, setAmount] = useState(0);
   const [image, setImage] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const history = useHistory();
+  const toast = useToast();
 
   const handleUpload = async (ev) => {
     const file = ev.target.files[0];
@@ -54,14 +54,17 @@ const Products = () => {
         setProductName("");
         setAmount("");
         setImage("");
-        setSuccessMsg("Product created");
-        // formRef.current.reset();
         history.push("/");
         return;
       }
 
       if (response.status === 400) {
-        setErrorMsg("Could not create product");
+        toast({
+          title: "Could not create product",
+          status: "error",
+          position: "top-right",
+          variant: "left-accent",
+        });
         setIsLoading(false);
         return;
       }
